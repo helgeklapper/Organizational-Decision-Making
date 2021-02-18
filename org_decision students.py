@@ -117,8 +117,8 @@ for k in K:
     e_low = 5 - k
     for e in range(E):
         (value_p, type_p) = project(q_low, q_high, t_low, t_high)
-        value_type_matrix[e,0] = value_p
-        value_type_matrix[e,1] = type_p
+        value_type_matrix[e, 0] = value_p
+        value_type_matrix[e, 1] = type_p
         # print('Value: ', value_p, ' and type: ', type_p)
         # Perception by three agents
         per_e_low = perceive_quality(value_p, type_p, e_low)
@@ -126,25 +126,25 @@ for k in K:
         # print('Individual perception: ', per_e_mid)
         per_e_high = perceive_quality(value_p, type_p, e_high)
         # Individual
-        temp_matrix[e,0] = choose_individual(value_p, per_e_mid)
+        temp_matrix[e, 0] = choose_individual(value_p, per_e_mid)
         # print('Ind. performance: ', temp_matrix[e,0])
-        temp_matrix[e,1] = choose_delegate(value_p, per_e_low, per_e_mid,
-                                           per_e_high, type_p,
-                                           e_low, e_mid, e_high)
-        temp_matrix[e,2] = choose_voting(value_p, per_e_low, per_e_mid,
-                                         per_e_high)
-        temp_matrix[e,3] = choose_average(value_p, per_e_low, per_e_mid,
+        temp_matrix[e, 1] = choose_delegate(value_p, per_e_low, per_e_mid,
+                                            per_e_high, type_p,
+                                            e_low, e_mid, e_high)
+        temp_matrix[e, 2] = choose_voting(value_p, per_e_low, per_e_mid,
                                           per_e_high)
+        temp_matrix[e, 3] = choose_average(value_p, per_e_low, per_e_mid,
+                                           per_e_high)
     # print(temp_matrix[:,0])
-    performance_matrix[k_counter, 0] = np.average(temp_matrix[:,0])
-    performance_matrix[k_counter, 1] = np.average(temp_matrix[:,1])
-    performance_matrix[k_counter, 2] = np.average(temp_matrix[:,2])
-    performance_matrix[k_counter, 3] = np.average(temp_matrix[:,3])
+    performance_matrix[k_counter, 0] = np.average(temp_matrix[:, 0])
+    performance_matrix[k_counter, 1] = np.average(temp_matrix[:, 1])
+    performance_matrix[k_counter, 2] = np.average(temp_matrix[:, 2])
+    performance_matrix[k_counter, 3] = np.average(temp_matrix[:, 3])
     k_counter += 1
     # Test whether correct calculation
-    average_value = np.average(value_type_matrix[:,0])
+    average_value = np.average(value_type_matrix[:, 0])
     # print('Average value', average_value)
-    average_type = np.average(value_type_matrix[:,1])
+    average_type = np.average(value_type_matrix[:, 1])
     # print('Average type', average_type)
 
 # print(performance_matrix)
@@ -169,17 +169,17 @@ for x in range(4):
     marker = markers[(line_no % len(markers))]
     line_no += 1
     if x == 0:
-        label='Individual'
+        label = 'Individual'
     elif x == 1:
-        label='Delegation'
+        label = 'Delegation'
     elif x == 2:
-        label='Voting'
+        label = 'Voting'
     elif x == 3:
-        label='Averaging'
+        label = 'Averaging'
     # print(round_no)
     # print(VAR_1)
     X = K
-    Z = performance_matrix[:,x]
+    Z = performance_matrix[:, x]
     ax.plot(X, Z, label=label, linestyle=style, marker=marker, markevery=1,
             linewidth=1)
 
