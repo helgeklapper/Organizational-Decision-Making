@@ -23,7 +23,7 @@ q_low = -5
 e_low = 0
 e_mid = 5
 e_high = 10
-E = 100
+E = 100000
 K = np.linspace(0, 5, num=11)
 number_Ks = len(K)
 
@@ -61,16 +61,32 @@ def choose_individual(value_p, per_e_mid):
 def choose_delegate(value_p, per_e_low, per_e_mid, per_e_high, type_p,
                     e_low, e_mid, e_high):
     performance = 0
+    threshhold_high = (e_high+e_mid)/2
+    threshhold_low  = (e_low+e_mid)/2
+    if type_p > threshhold_high:
+        if per_e_high > 0:
+            performance = value_p
+    elif type_p < threshhold_low:
+        if per_e_low > 0:
+            performance = value_p
+    else:
+        if per_e_mid > 0:
+            performance = value_p
     return performance
 
 def choose_voting(value_p, per_e_low, per_e_mid, per_e_high):
-    performance = 0
+    if sum(np.array([per_e_low, per_e_mid, per_e_high])>0)>=2:
+        performance = value_p   
+    else:
+        performance = 0
     return performance
 
 def choose_average(value_p, per_e_low, per_e_mid, per_e_high):
-    
-    performance = np.mean([per_e_low, per_e_mid, per_e_high])
-    
+    avg_qual = np.mean([per_e_low, per_e_mid, per_e_high])
+    if avg_qual > 0:
+        performance = value_p
+    else:
+        performance = 0
     return performance
 
 
@@ -127,50 +143,50 @@ for k in K:
 # Figures
 ##########################
     
-# plt.figure(dpi=150)
-# plt.axes(frameon=0)
-# plt.grid()
-# ax = plt.subplot(111)
-# plt.ylabel('Perfomance')
-# plt.xlabel('Knowledge breadth')
-# linestyles = ['-', '--']
-# markers = ['v', '^', 'o', 's', 'D']
+plt.figure(dpi=150)
+plt.axes(frameon=0)
+plt.grid()
+ax = plt.subplot(111)
+plt.ylabel('Perfomance')
+plt.xlabel('Knowledge breadth')
+linestyles = ['-', '--']
+markers = ['v', '^', 'o', 's', 'D']
 
-# line_no = 0
+line_no = 0
 
-# for x in range(4):
-#     style = linestyles[(line_no % len(linestyles))]
-#     marker = markers[(line_no % len(markers))]
-#     line_no += 1
-#     if x == 0:
-#         label='Individual'
-#     elif x == 1:
-#         label='Delegation'
-#     elif x == 2:
-#         label='Voting'
-#     elif x == 3:
-#         label='Averaging'
-#     # print(round_no)
-#     # print(VAR_1)
-#     X = K
-#     Z = performance_matrix[:,x]
-#     ax.plot(X, Z, label=label, linestyle=style, marker=marker, markevery=1, 
-#             linewidth=1)
+for x in range(4):
+    style = linestyles[(line_no % len(linestyles))]
+    marker = markers[(line_no % len(markers))]
+    line_no += 1
+    if x == 0:
+        label='Individual'
+    elif x == 1:
+        label='Delegation'
+    elif x == 2:
+        label='Voting'
+    elif x == 3:
+        label='Averaging'
+    # print(round_no)
+    # print(VAR_1)
+    X = K
+    Z = performance_matrix[:,x]
+    ax.plot(X, Z, label=label, linestyle=style, markevery=1, 
+            linewidth=1)
 
-# box = ax.get_position()
-# ax.set_position([box.x0, box.y0, box.width, box.height])
-# ax.yaxis.grid(which="major", color='lightgray', linewidth=1, marker='*',
-#               rasterized=True, markeredgecolor='white')
+box = ax.get_position()
+ax.set_position([box.x0, box.y0, box.width, box.height])
+ax.yaxis.grid(which="major", color='lightgray', linewidth=1,
+              rasterized=True, markeredgecolor='white')
 
-# lgd = ax.legend(loc='best', title='', frameon=True, fancybox=True, 
-#                 framealpha=0.75)
+lgd = ax.legend(loc='best', title='', frameon=True, fancybox=True, 
+                framealpha=0.75)
 
-# name = 'main'
-# graph_name = name + '.png'
-# # plt.subplots_adjust(right=1.5)
-# # sns.despine()
-# plt.tight_layout()
-# # plt.savefig(graph_name, format='png', bbox_extra_artists=[lgd])
+name = 'main'
+graph_name = name + '.png'
+# plt.subplots_adjust(right=1.5)
+# sns.despine()
+plt.tight_layout()
+# plt.savefig(graph_name, format='png', bbox_extra_artists=[lgd])
 
-# plt.show()
-# plt.close()
+plt.show()
+plt.close()
