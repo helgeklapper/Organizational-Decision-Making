@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-##########################    
+##########################
 # Parameters
 ##########################
 
@@ -25,7 +25,7 @@ K = np.linspace(0, 5, num=11)
 number_Ks = len(K)
 
 
-##########################    
+##########################
 # Functions
 ##########################
 
@@ -51,7 +51,7 @@ def choose_individual(value_p, per_e_mid):
         performance = 0
     return performance
 
-##########################    
+##########################
 # Please change the following functions!
 ##########################
 
@@ -75,7 +75,7 @@ value_type_matrix = np.zeros((E, 2))
 # Save each result in matrix
 # 0  for individual, 1, for delegating, 2 for voting, 3 for averageing
 
-##########################    
+##########################
 # Simulation
 ##########################
 
@@ -90,20 +90,20 @@ for k in K:
         value_type_matrix[e,1] = type_p
         # print('Value: ', value_p, ' and type: ', type_p)
         # Perception by three agents
-        per_e_low = perceive_quality(value_p, type_p, e_low)        
+        per_e_low = perceive_quality(value_p, type_p, e_low)
         per_e_mid = perceive_quality(value_p, type_p, e_mid)
         # print('Individual perception: ', per_e_mid)
         per_e_high = perceive_quality(value_p, type_p, e_high)
         # Individual
         temp_matrix[e,0] = choose_individual(value_p, per_e_mid)
         # print('Ind. performance: ', temp_matrix[e,0])
-        temp_matrix[e,1] = choose_delegate(value_p, per_e_low, per_e_mid, 
+        temp_matrix[e,1] = choose_delegate(value_p, per_e_low, per_e_mid,
                                            per_e_high, type_p,
                                            e_low, e_mid, e_high)
-        temp_matrix[e,2] = choose_voting(value_p, per_e_low, per_e_mid, 
+        temp_matrix[e,2] = choose_voting(value_p, per_e_low, per_e_mid,
                                          per_e_high)
-        temp_matrix[e,3] = choose_average(value_p, per_e_low, per_e_mid, 
-                                          per_e_high)   
+        temp_matrix[e,3] = choose_average(value_p, per_e_low, per_e_mid,
+                                          per_e_high)
     # print(temp_matrix[:,0])
     performance_matrix[k_counter, 0] = np.average(temp_matrix[:,0])
     performance_matrix[k_counter, 1] = np.average(temp_matrix[:,1])
@@ -114,14 +114,14 @@ for k in K:
     average_value = np.average(value_type_matrix[:,0])
     # print('Average value', average_value)
     average_type = np.average(value_type_matrix[:,1])
-    # print('Average type', average_type)    
+    # print('Average type', average_type)
 
 # print(performance_matrix)
-    
-##########################    
+
+##########################
 # Figures
 ##########################
-    
+
 plt.figure(dpi=150)
 plt.axes(frameon=0)
 plt.grid()
@@ -149,15 +149,15 @@ for x in range(4):
     # print(VAR_1)
     X = K
     Z = performance_matrix[:,x]
-    ax.plot(X, Z, label=label, linestyle=style, marker=marker, markevery=1, 
+    ax.plot(X, Z, label=label, linestyle=style, marker=marker, markevery=1,
             linewidth=1)
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width, box.height])
-ax.yaxis.grid(which="major", color='lightgray', linewidth=1, marker='*',
+ax.yaxis.grid(which="major", color='lightgray', linewidth=1,
               rasterized=True, markeredgecolor='white')
 
-lgd = ax.legend(loc='best', title='', frameon=True, fancybox=True, 
+lgd = ax.legend(loc='best', title='', frameon=True, fancybox=True,
                 framealpha=0.75)
 
 name = 'main'
