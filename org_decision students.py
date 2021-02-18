@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 # Parameters
 ##########################
 
-t_high = 100
+t_high = 120
 t_low = 0
 q_high = 5
 q_low = -5
