@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 # Parameters
 ##########################
 
+
+
+test = 150
 t_high = 10
 t_low = 0
 q_high = 5
@@ -65,7 +68,9 @@ def choose_voting(value_p, per_e_low, per_e_mid, per_e_high):
     return performance
 
 def choose_average(value_p, per_e_low, per_e_mid, per_e_high):
-    performance = 0
+    
+    performance = avg(per_e_low, per_e_mid, per_e_high)
+    
     return performance
 
 
@@ -122,50 +127,50 @@ for k in K:
 # Figures
 ##########################
     
-plt.figure(dpi=150)
-plt.axes(frameon=0)
-plt.grid()
-ax = plt.subplot(111)
-plt.ylabel('Perfomance')
-plt.xlabel('Knowledge breadth')
-linestyles = ['-', '--']
-markers = ['v', '^', 'o', 's', 'D']
+# plt.figure(dpi=150)
+# plt.axes(frameon=0)
+# plt.grid()
+# ax = plt.subplot(111)
+# plt.ylabel('Perfomance')
+# plt.xlabel('Knowledge breadth')
+# linestyles = ['-', '--']
+# markers = ['v', '^', 'o', 's', 'D']
 
-line_no = 0
+# line_no = 0
 
-for x in range(4):
-    style = linestyles[(line_no % len(linestyles))]
-    marker = markers[(line_no % len(markers))]
-    line_no += 1
-    if x == 0:
-        label='Individual'
-    elif x == 1:
-        label='Delegation'
-    elif x == 2:
-        label='Voting'
-    elif x == 3:
-        label='Averaging'
-    # print(round_no)
-    # print(VAR_1)
-    X = K
-    Z = performance_matrix[:,x]
-    ax.plot(X, Z, label=label, linestyle=style, marker=marker, markevery=1, 
-            linewidth=1)
+# for x in range(4):
+#     style = linestyles[(line_no % len(linestyles))]
+#     marker = markers[(line_no % len(markers))]
+#     line_no += 1
+#     if x == 0:
+#         label='Individual'
+#     elif x == 1:
+#         label='Delegation'
+#     elif x == 2:
+#         label='Voting'
+#     elif x == 3:
+#         label='Averaging'
+#     # print(round_no)
+#     # print(VAR_1)
+#     X = K
+#     Z = performance_matrix[:,x]
+#     ax.plot(X, Z, label=label, linestyle=style, marker=marker, markevery=1, 
+#             linewidth=1)
 
-box = ax.get_position()
-ax.set_position([box.x0, box.y0, box.width, box.height])
-ax.yaxis.grid(which="major", color='lightgray', linewidth=1, marker='*',
-              rasterized=True, markeredgecolor='white')
+# box = ax.get_position()
+# ax.set_position([box.x0, box.y0, box.width, box.height])
+# ax.yaxis.grid(which="major", color='lightgray', linewidth=1, marker='*',
+#               rasterized=True, markeredgecolor='white')
 
-lgd = ax.legend(loc='best', title='', frameon=True, fancybox=True, 
-                framealpha=0.75)
+# lgd = ax.legend(loc='best', title='', frameon=True, fancybox=True, 
+#                 framealpha=0.75)
 
-name = 'main'
-graph_name = name + '.png'
-# plt.subplots_adjust(right=1.5)
-# sns.despine()
-plt.tight_layout()
-# plt.savefig(graph_name, format='png', bbox_extra_artists=[lgd])
+# name = 'main'
+# graph_name = name + '.png'
+# # plt.subplots_adjust(right=1.5)
+# # sns.despine()
+# plt.tight_layout()
+# # plt.savefig(graph_name, format='png', bbox_extra_artists=[lgd])
 
-plt.show()
-plt.close()
+# plt.show()
+# plt.close()
