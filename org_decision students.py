@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 
 
-test = 300
+test = 150
 t_high = 10
 t_low = 0
 q_high = 5
