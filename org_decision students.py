@@ -69,7 +69,7 @@ def choose_voting(value_p, per_e_low, per_e_mid, per_e_high):
 
 def choose_average(value_p, per_e_low, per_e_mid, per_e_high):
     
-    performance = avg(per_e_low, per_e_mid, per_e_high)
+    performance = np.mean([per_e_low, per_e_mid, per_e_high])
     
     return performance
 
