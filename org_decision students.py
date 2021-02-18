@@ -20,7 +20,7 @@ q_low = -5
 e_low = 0
 e_mid = 5
 e_high = 10
-E = 100
+E = 100000
 K = np.linspace(0, 5, num=11)
 number_Ks = len(K)
 
@@ -55,17 +55,48 @@ def choose_individual(value_p, per_e_mid):
 # Please change the following functions!
 ##########################
 
+
 def choose_delegate(value_p, per_e_low, per_e_mid, per_e_high, type_p,
                     e_low, e_mid, e_high):
-    performance = 0
+    decision = 0
+    if type_p < ((e_mid + e_low)/2):
+        if per_e_low > 0:
+            decision = 1
+    elif type_p > ((e_mid + e_high)/2):
+        if per_e_high > 0:
+            decision = 1
+    else:
+        if per_e_mid > 0:
+            decision = 1
+    if decision == 1:
+        performance = value_p
+    else:
+        performance = 0
     return performance
+
 
 def choose_voting(value_p, per_e_low, per_e_mid, per_e_high):
-    performance = 0
+    vote = 0
+    if per_e_low > 0:
+        vote += 1
+    if per_e_mid > 0:
+        vote += 1
+    if per_e_high > 0:
+        vote += 1
+    if vote >= 2:
+        performance = value_p
+    else:
+        performance = 0
     return performance
 
+
 def choose_average(value_p, per_e_low, per_e_mid, per_e_high):
-    performance = 0
+    per_vector = [per_e_low, per_e_mid, per_e_high]
+    decision = np.average(per_vector)
+    if decision > 0:
+        performance = value_p
+    else:
+        performance = 0
     return performance
 
 
